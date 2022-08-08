@@ -10,16 +10,21 @@ const STORAGE_KEY = "feedback-form-state";
 refs.feedbackForm.addEventListener('input', throttle(onTyping, 500));
 refs.feedbackForm.addEventListener('submit', onFormSubmit);
 
-const formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
 // Перевіряє при перезавантаженні сторінки, чи текстові поля були заповнені (перевіряє localStorage) і якщо так, вносить ці дані в поля форми
 populateFormData();
 
 // Виводить в localStorage об'єкт зі значенням інпуту email та значенням текстеріа message:
 function onTyping(evt) {
+  const formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  // console.log(formData)
   const message = evt.target.value;
+  // console.log(message)
   const name = evt.target.name;
+  // console.log(name)
   formData[name] = message;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData))
+
 }
 
 function populateFormData() {
@@ -40,11 +45,10 @@ function onFormSubmit(evt) {
     alert(`Please provide information into all available fields`)
   } else {
       evt.preventDefault();
-      console.log(`Provided data:`, formData);
       evt.target.reset();
+      console.log(`Provided data:`, localStorage.getItem(STORAGE_KEY));
       localStorage.removeItem(STORAGE_KEY);
     // Костиль: вирішення проблеми з появою імейлу з попереднього сабміта у випадку, коли після того сабміту знову заповнити моле для повідомлення, не заповнити поле імейла, натиснути кнопку сабміту і потім ок в алерті. Примусово перезавантажує сторінку через 10 секунд
-      window.setTimeout(function () { location.reload() }, 10000)
     }
   }
 
