@@ -36,17 +36,16 @@ function populateFormData() {
 // Очищення форми при сабміті і виведення в консоль об'єкта з полями email, message та їхніми поточними значеннями.
 
 function onFormSubmit(evt) {
-  if (!refs.feedbackInput.value || !refs.feedbackTextarea.value) {
+  if (!refs.feedbackInput.value.trim() || !refs.feedbackTextarea.value.trim()) {
     alert(`Please provide information into all available fields`)
-  }
-    else {
+  } else {
       evt.preventDefault();
       console.log(`Provided data:`, formData);
       evt.target.reset();
-    localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(STORAGE_KEY);
     // Костиль: вирішення проблеми з появою імейлу з попереднього сабміта у випадку, коли після того сабміту знову заповнити моле для повідомлення, не заповнити поле імейла, натиснути кнопку сабміту і потім ок в алерті. Примусово перезавантажує сторінку через 10 секунд
-    window.setTimeout(function () { location.reload() }, 10000)
+      window.setTimeout(function () { location.reload() }, 10000)
     }
   }
-  
+
   
