@@ -46,9 +46,8 @@ function onFormSubmit(evt) {
   } else {
       evt.preventDefault();
       evt.target.reset();
-      console.log(`Provided data:`, localStorage.getItem(STORAGE_KEY));
-      localStorage.removeItem(STORAGE_KEY);
-    // Костиль: вирішення проблеми з появою імейлу з попереднього сабміта у випадку, коли після того сабміту знову заповнити моле для повідомлення, не заповнити поле імейла, натиснути кнопку сабміту і потім ок в алерті. Примусово перезавантажує сторінку через 10 секунд
+      console.log(`Provided data:`, JSON.parse(localStorage.getItem(STORAGE_KEY)));
+    localStorage.removeItem(STORAGE_KEY);
     }
   }
 
